@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name" translatable="false">Inventory</string>
+    <!--activity_catalog related strings-->
+    <string name="image_for_empty_view">Image for empty view</string>
+    <string name="empty_view_title_text">Inventory is empty</string>
+    <string name="empty_view_subtitle_text">Add new inventory by pressing plus sign</string>
+    <!--list_items related strings-->
+    <string name="product_name">Product Name</string>
+    <string name="product_image">Product Image</string>
+    <string name="product_in_stock">In stock:</string>
+    <string name="product_price">Price:</string>
+    <string name="product_sale">sell</string>
+    <!--activity_detail related strings-->
+    <string name="detail_product_name">Product Name</string>
+    <string name="enter_the_product_name">Enter the product name</string>
+    <string name="detail_product_price">Price</string>
+    <string name="enter_the_product_price">Enter the price</string>
+    <string name="detail_product_quantity">Quantity</string>
+    <string name="detail_product_restock">Restock</string>
+    <string name="detail_product_delete">Delete product</string>
+    <string name="detail_product_save">Save edits</string>
+    <string name="detail_product_image">Image</string>
+    <string name="enter_the_product_quantity">Enter the quantity</string>
+    <string name="enter_amount_to_restock">Enter the amount to restock</string>
+    <string name="button_detail_minus_sign" translatable="false">-</string>
+    <string name="button_detail_plus_sign" translatable="false">+</string>
+</resources>
