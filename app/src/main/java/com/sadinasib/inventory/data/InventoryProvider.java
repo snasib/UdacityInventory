@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import static com.sadinasib.inventory.data.InventoryContract.CONTENT_AUTHORITY;
@@ -109,23 +110,23 @@ public class InventoryProvider extends ContentProvider {
     }
 
     @Nullable
-    private Uri insertPRODUCT(@NonNull Uri uri, @Nullable ContentValues contentValues) {
+    private Uri insertPRODUCT(@NonNull Uri uri, @Nullable ContentValues contentValues) throws IllegalArgumentException {
         Log.i(TAG, "insertPRODUCT");
 
         String name = contentValues.getAsString(COLUMN_PRODUCT_NAME);
-        if (name == null) {
+        if (TextUtils.isEmpty(name)) {
             throw new IllegalArgumentException("Product requires a name");
         }
 
-        Integer price = contentValues.getAsInteger(COLUMN_PRODUCT_PRICE);
-        if (price == null || price < 0) {
-            throw new IllegalArgumentException("Product requires price");
-        }
-
-        Integer amount = contentValues.getAsInteger(COLUMN_PRODUCT_AMOUNT);
-        if (amount == null || amount < 0) {
-            throw new IllegalArgumentException("Product requires amount");
-        }
+//        Integer price = contentValues.getAsInteger(COLUMN_PRODUCT_PRICE);
+//        if (price == null || price < 0) {
+//            throw new IllegalArgumentException("Product requires a name");
+//        }
+//
+//        Integer amount = contentValues.getAsInteger(COLUMN_PRODUCT_AMOUNT);
+//        if (amount == null || amount < 0) {
+//            throw new IllegalArgumentException("Product requires amount");
+//        }
 
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
         long id = database.insert(TABLE_NAME, null, contentValues);
