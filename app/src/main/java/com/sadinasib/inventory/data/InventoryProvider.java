@@ -118,16 +118,6 @@ public class InventoryProvider extends ContentProvider {
             throw new IllegalArgumentException("Product requires a name");
         }
 
-//        Integer price = contentValues.getAsInteger(COLUMN_PRODUCT_PRICE);
-//        if (price == null || price < 0) {
-//            throw new IllegalArgumentException("Product requires a name");
-//        }
-//
-//        Integer amount = contentValues.getAsInteger(COLUMN_PRODUCT_AMOUNT);
-//        if (amount == null || amount < 0) {
-//            throw new IllegalArgumentException("Product requires amount");
-//        }
-
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
         long id = database.insert(TABLE_NAME, null, contentValues);
         if (id == -1) {
