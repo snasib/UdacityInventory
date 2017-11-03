@@ -43,10 +43,10 @@
             android:textColor="#A2AAB0" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyclerView"/>
+        android:layout_height="match_parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
