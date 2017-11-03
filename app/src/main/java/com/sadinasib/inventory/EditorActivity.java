@@ -78,8 +78,7 @@ public class EditorActivity extends AppCompatActivity {
                 InventoryEntry._ID,
                 InventoryEntry.COLUMN_PRODUCT_NAME,
                 InventoryEntry.COLUMN_PRODUCT_PRICE,
-                InventoryEntry.COLUMN_PRODUCT_AMOUNT,
-                InventoryEntry.COLUMN_PRODUCT_IMAGE_ID};
+                InventoryEntry.COLUMN_PRODUCT_AMOUNT};
 
         Cursor cursor = getContentResolver().query(mCurrentProductUri, projection, null, null, null);
 
@@ -135,7 +134,6 @@ public class EditorActivity extends AppCompatActivity {
         values.put(InventoryEntry.COLUMN_PRODUCT_NAME, nameString);
         values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, priceString);
         values.put(InventoryEntry.COLUMN_PRODUCT_AMOUNT, countString);
-        values.put(InventoryEntry.COLUMN_PRODUCT_IMAGE_ID, String.valueOf(findViewById(R.id.product_image_view)));
 
         if (mCurrentProductUri == null) {
             Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
@@ -169,5 +167,50 @@ public class EditorActivity extends AppCompatActivity {
             menuItem.setVisible(false);
         }
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_save:
+                saveProduct();
+                finish();
+                return true;
+            case R.id.action_delete:
+                showDeleteConfirmationDialog();
+                return true;
+            case android.R.id.home:
+                if (mProductHasChanged) {
+                    showUnsavedChangesDialog();
+                } else {
+                    mProductHasChanged = false;
+                    NavUtils.navigateUpFromSameTask(EditorActivity.this);
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showDeleteConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.editor_activity_are_you_sure_to_delete)
+                .setPositiveButton(getString(R.string.editor_activity_yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteProduct();
+                        finish();
+                        return;
+                    }
+                })
+                .setNegativeButton(getString(R.string.editor_activity_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
+    }
+
+    private void deleteProduct() {
+        int id = getContentResolver().delete(mCurrentProductUri, null, null);
     }
 }

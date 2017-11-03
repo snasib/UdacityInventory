@@ -31,16 +31,13 @@ public class InventoryCursorAdapter extends CursorAdapter {
         TextView tvName = (TextView) view.findViewById(R.id.product_name_text);
         TextView tvPrice = (TextView) view.findViewById(R.id.product_price_text);
         TextView tvAmount = (TextView) view.findViewById(R.id.product_stock_count_text);
-        ImageView ivImage = (ImageView) view.findViewById(R.id.product_image_view);
 
         String name = cursor.getString(cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_NAME));
         String price = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_PRODUCT_PRICE));
         String amount = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_PRODUCT_AMOUNT));
-        int imageId = cursor.getInt(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_PRODUCT_IMAGE_ID));
 
         tvName.setText(name);
         tvPrice.setText(String.format("Price: %s", price));
         tvAmount.setText(String.format("In stock: %s", amount));
-        ivImage.setImageResource(imageId);
     }
 }

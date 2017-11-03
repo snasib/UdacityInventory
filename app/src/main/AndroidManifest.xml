@@ -20,7 +20,7 @@
             android:parentActivityName=".CatalogActivity"/>
 
         <provider
-            android:authorities="com.example.android.stock"
+            android:authorities="com.sadinasib.inventory"
             android:name=".data.InventoryProvider"
             android:exported="false" />
     </application>

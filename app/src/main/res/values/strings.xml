@@ -39,4 +39,7 @@
     <string name="editor_update_product_successful">Update successful</string>
     <string name="action_save">Save</string>
     <string name="action_delete">delete</string>
+    <string name="editor_activity_are_you_sure_to_delete">Are you sure to delete?</string>
+    <string name="editor_activity_yes">yes</string>
+    <string name="editor_activity_cancel">Cancel</string>
 </resources>

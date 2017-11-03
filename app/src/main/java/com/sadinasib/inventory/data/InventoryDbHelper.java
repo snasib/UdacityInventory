@@ -22,8 +22,7 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
                     + InventoryEntry._ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
                     + InventoryEntry.COLUMN_PRODUCT_NAME + " TEXT NOT NULL, "
                     + InventoryEntry.COLUMN_PRODUCT_PRICE + " INTEGER NOT NULL DEFAULT 0, "
-                    + InventoryEntry.COLUMN_PRODUCT_AMOUNT + " INTEGER NOT NULL DEFAULT 0, "
-                    + InventoryEntry.COLUMN_PRODUCT_IMAGE_ID + " INTEGER NOT NULL);";
+                    + InventoryEntry.COLUMN_PRODUCT_AMOUNT + " INTEGER NOT NULL DEFAULT 0);";
 
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
             + InventoryEntry.TABLE_NAME + ";";
