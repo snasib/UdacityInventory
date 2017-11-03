@@ -24,4 +24,19 @@
     <string name="enter_amount_to_restock">Enter the amount to restock</string>
     <string name="button_detail_minus_sign" translatable="false">-</string>
     <string name="button_detail_plus_sign" translatable="false">+</string>
+    <string name="action_insert_product">Insert</string>
+    <string name="action_delete_all_entries">Delete all</string>
+    <string name="editor_activity_add_product">Add product</string>
+    <string name="editor_activity_edit_product">Edit</string>
+    <string name="unsaved_changes_dialog_msg">Do you want to discard your changes?</string>
+    <string name="keep_editing">Keep editing</string>
+    <string name="discard">Discard</string>
+    <string name="editor_acitivity_no_data_entered">No data entered</string>
+    <string name="editor_activity_need_name">Product need name</string>
+    <string name="editor_insert_product_failed">Insertion failed</string>
+    <string name="editor_insert_product_successful">Insertion successful</string>
+    <string name="editor_update_product_failed">Update failed</string>
+    <string name="editor_update_product_successful">Update successful</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">delete</string>
 </resources>

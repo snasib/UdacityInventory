@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="@dimen/activity_detail_layout_padding"
     android:verticalScrollbarPosition="right"
-    tools:context=".DetailActivity">
+    tools:context=".EditorActivity">
 
     <TextView
         android:id="@+id/detail_product_name"
