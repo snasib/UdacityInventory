@@ -32,7 +32,6 @@ public class EditorActivity extends AppCompatActivity {
 
     private Uri mCurrentProductUri;
     private boolean mProductHasChanged = false;
-    private TextWatcher mTextWatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,7 @@ public class EditorActivity extends AppCompatActivity {
             setTitle(getString(R.string.editor_activity_edit_product));
             updateUI();
         }
-        mTextWatcher = new TextWatcher() {
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -67,9 +66,9 @@ public class EditorActivity extends AppCompatActivity {
                 mProductHasChanged = true;
             }
         };
-        mNameEdit.addTextChangedListener(mTextWatcher);
-        mPriceEdit.addTextChangedListener(mTextWatcher);
-        mRestockEdit.addTextChangedListener(mTextWatcher);
+        mNameEdit.addTextChangedListener(textWatcher);
+        mPriceEdit.addTextChangedListener(textWatcher);
+        mRestockEdit.addTextChangedListener(textWatcher);
     }
 
     private void updateUI() {
@@ -113,12 +112,9 @@ public class EditorActivity extends AppCompatActivity {
         String nameString = mNameEdit.getText().toString().trim();
         String priceString = mPriceEdit.getText().toString().trim();
         String countString = mCountEdit.getText().toString().trim();
-        String restockString = mRestockEdit.getText().toString().trim();
-        int weight = 0;
         if (TextUtils.isEmpty(nameString)
                 && TextUtils.isEmpty(priceString)
-                && TextUtils.isEmpty(countString)
-                && TextUtils.isEmpty(restockString)) {
+                && TextUtils.isEmpty(countString)) {
             Toast.makeText(this, getString(R.string.editor_acitivity_no_data_entered), Toast.LENGTH_SHORT).show();
             finish();
             return;
@@ -134,6 +130,8 @@ public class EditorActivity extends AppCompatActivity {
         values.put(InventoryEntry.COLUMN_PRODUCT_NAME, nameString);
         values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, priceString);
         values.put(InventoryEntry.COLUMN_PRODUCT_AMOUNT, countString);
+
+
 
         if (mCurrentProductUri == null) {
             Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);

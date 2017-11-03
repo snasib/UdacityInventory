@@ -14,12 +14,12 @@ import static com.sadinasib.inventory.data.InventoryContract.InventoryEntry;
 public class InventoryDbHelper extends SQLiteOpenHelper {
     private static final String TAG = InventoryDbHelper.class.getSimpleName();
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Inventory.db";
+    private static final String DATABASE_NAME = "inventory.db";
 
     private static final String SQL_CREATE_STOCK_TABLE =
             "CREATE TABLE "
                     + InventoryEntry.TABLE_NAME + " ("
-                    + InventoryEntry._ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+                    + InventoryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + InventoryEntry.COLUMN_PRODUCT_NAME + " TEXT NOT NULL, "
                     + InventoryEntry.COLUMN_PRODUCT_PRICE + " INTEGER NOT NULL DEFAULT 0, "
                     + InventoryEntry.COLUMN_PRODUCT_AMOUNT + " INTEGER NOT NULL DEFAULT 0);";

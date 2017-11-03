@@ -60,7 +60,7 @@ public class InventoryProvider extends ContentProvider {
                         selectionArgs,
                         null,
                         null,
-                        null);
+                        sortOrder);
                 break;
             case PRODUCT_ID:
                 selection = _ID + "=?";
@@ -128,7 +128,7 @@ public class InventoryProvider extends ContentProvider {
         }
 
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
-        long id = database.insert(TABLE_NAME, null, null);
+        long id = database.insert(TABLE_NAME, null, contentValues);
         if (id == -1) {
             Log.e(TAG, "insertPRODUCT: Failed to insert row for" + uri);
             return null;
