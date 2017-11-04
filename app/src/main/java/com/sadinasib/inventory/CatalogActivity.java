@@ -4,30 +4,32 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.sadinasib.inventory.adapter.InventoryCursorAdapter;
 
-import static com.sadinasib.inventory.data.InventoryContract.*;
+import static com.sadinasib.inventory.data.InventoryContract.InventoryEntry;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = CatalogActivity.class.getSimpleName();
-    private static final int INVENTORY_LOADER_ID =35;
+    private static final int INVENTORY_LOADER_ID = 35;
 
     private InventoryCursorAdapter mCursorAdapter;
     private ListView mListView;
@@ -54,18 +56,49 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         mCursorAdapter = new InventoryCursorAdapter(this, null);
         mListView.setAdapter(mCursorAdapter);
 
+
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent editIntent = new Intent(CatalogActivity.this, EditorActivity.class);
-                Uri currentPetUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
-                editIntent.setData(currentPetUri);
+                Uri currentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
+                editIntent.setData(currentProductUri);
                 startActivity(editIntent);
                 return true;
             }
         });
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                sellOneItem(id);
+            }
+        });
+
         getLoaderManager().initLoader(INVENTORY_LOADER_ID, null, this);
+    }
+
+    private void sellOneItem(long id) {
+        String[] projection = {InventoryEntry.COLUMN_PRODUCT_AMOUNT};
+        Uri currentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
+        Integer val = null;
+
+        Cursor cursor = getContentResolver().query(currentProductUri,
+                projection,
+                null,
+                null,
+                null
+        );
+        if (cursor != null && cursor.moveToFirst()) {
+            val = Integer.parseInt(cursor.getString(cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_AMOUNT)));
+        }
+        if (val != null && val >= 1) {
+            ContentValues values = new ContentValues();
+            values.put(InventoryEntry.COLUMN_PRODUCT_AMOUNT, --val);
+            getContentResolver().update(currentProductUri, values, null, null);
+        } else {
+            Toast.makeText(this, "No more such product", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
