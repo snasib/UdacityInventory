@@ -6,22 +6,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.sadinasib.inventory.data.InventoryContract;
 import com.sadinasib.inventory.data.InventoryContract.InventoryEntry;
-
-import butterknife.BindView;
 
 public class EditorActivity extends AppCompatActivity {
     private static final String TAG = EditorActivity.class.getSimpleName();
@@ -69,6 +68,35 @@ public class EditorActivity extends AppCompatActivity {
         mNameEdit.addTextChangedListener(textWatcher);
         mPriceEdit.addTextChangedListener(textWatcher);
         mRestockEdit.addTextChangedListener(textWatcher);
+
+        Button buttonMinus = (Button) findViewById(R.id.button_detail_decrease);
+        Button buttonPlus = (Button) findViewById(R.id.button_detail_increase);
+        Button buttonRestock = (Button) findViewById(R.id.button_detail_restock);
+        View.OnClickListener buttonListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer val = Integer.parseInt(mCountEdit.getText().toString().trim());
+                switch (view.getId()) {
+                    case R.id.button_detail_increase:
+                        val++;
+                        mCountEdit.setText(String.format("%s", val));
+                        break;
+                    case R.id.button_detail_decrease:
+                        val--;
+                        mCountEdit.setText(String.valueOf(val));
+                        break;
+                    case R.id.button_detail_restock:
+                        Integer restockVal = Integer.parseInt(mRestockEdit.getText().toString().trim());
+                        if (restockVal != null) {
+                            val += restockVal;
+                            mCountEdit.setText(String.valueOf(val));
+                        }
+                }
+            }
+        };
+        buttonMinus.setOnClickListener(buttonListener);
+        buttonPlus.setOnClickListener(buttonListener);
+        buttonRestock.setOnClickListener(buttonListener);
     }
 
     private void updateUI() {
@@ -119,18 +147,22 @@ public class EditorActivity extends AppCompatActivity {
             finish();
             return;
         }
-
         if (TextUtils.isEmpty(nameString)) {
             Toast.makeText(this, getString(R.string.editor_activity_need_name), Toast.LENGTH_SHORT).show();
             finish();
             return;
+        }
+        if (TextUtils.isEmpty(priceString)) {
+            priceString = "0";
+        }
+        if (TextUtils.isEmpty(countString)) {
+            countString = "0";
         }
 
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_PRODUCT_NAME, nameString);
         values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, priceString);
         values.put(InventoryEntry.COLUMN_PRODUCT_AMOUNT, countString);
-
 
 
         if (mCurrentProductUri == null) {
