@@ -42,4 +42,5 @@
     <string name="editor_activity_are_you_sure_to_delete">Are you sure to delete?</string>
     <string name="editor_activity_yes">yes</string>
     <string name="editor_activity_cancel">Cancel</string>
+    <string name="detail_product_order">Order</string>
 </resources>
