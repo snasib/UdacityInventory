@@ -68,37 +68,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             }
         });
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                sellOneItem(id);
-            }
-        });
-
         getLoaderManager().initLoader(INVENTORY_LOADER_ID, null, this);
-    }
-
-    private void sellOneItem(long id) {
-        String[] projection = {InventoryEntry.COLUMN_PRODUCT_AMOUNT};
-        Uri currentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
-        Integer val = null;
-
-        Cursor cursor = getContentResolver().query(currentProductUri,
-                projection,
-                null,
-                null,
-                null
-        );
-        if (cursor != null && cursor.moveToFirst()) {
-            val = Integer.parseInt(cursor.getString(cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_AMOUNT)));
-        }
-        if (val != null && val >= 1) {
-            ContentValues values = new ContentValues();
-            values.put(InventoryEntry.COLUMN_PRODUCT_AMOUNT, --val);
-            getContentResolver().update(currentProductUri, values, null, null);
-        } else {
-            Toast.makeText(this, "No more such product", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
