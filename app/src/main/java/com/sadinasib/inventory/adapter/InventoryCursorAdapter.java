@@ -79,7 +79,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
             values.put(InventoryEntry.COLUMN_PRODUCT_AMOUNT, --val);
             context.getContentResolver().update(currentProductUri, values, null, null);
         } else {
-            Toast.makeText(context, "No more such product", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.product_out_of_stock, Toast.LENGTH_SHORT).show();
         }
     }
 }
