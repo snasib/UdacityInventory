@@ -77,7 +77,10 @@ public class InventoryCursorAdapter extends CursorAdapter {
         if (val != null && val >= 1) {
             ContentValues values = new ContentValues();
             values.put(InventoryEntry.COLUMN_PRODUCT_AMOUNT, --val);
-            context.getContentResolver().update(currentProductUri, values, null, null);
+            int updateId = context.getContentResolver().update(currentProductUri, values, null, null);
+            if (updateId != -1) {
+                Toast.makeText(context, R.string.item_sold, Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(context, R.string.product_out_of_stock, Toast.LENGTH_SHORT).show();
         }

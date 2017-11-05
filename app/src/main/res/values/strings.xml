@@ -44,4 +44,5 @@
     <string name="editor_activity_cancel">Cancel</string>
     <string name="detail_product_order">Order</string>
     <string name="product_out_of_stock">Product is out-of-stock</string>
+    <string name="item_sold">Item sold</string>
 </resources>
